@@ -8,16 +8,19 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const baseApiUrl = 'https://api.mymemory.translated.net/get';
 
 
-app.get('/', async (req, res) => {
+app.get('/get', async (req, res) => {
   try {
+    const word = req.query.word;
+    const langpair = req.query.langpair;
     console.log('maki api request')
-    const url = `${baseApiUrl}/q=${word}&langpair=${langpair}`;
-    const url2 = 'https://api.mymemory.translated.net/get?q=Hello%20World!&langpair=en|it';
-    axios.get(url2)
+    const url = `${baseApiUrl}?q=${word}&langpair=${langpair}`;
+    console.log(url);
+    // const url2 = 'https://api.mymemory.translated.net/get?q=Hello%20World!&langpair=en|it';
+    await axios.get(url)
       .then(function (response) {
         console.log(response);
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(response.data));
+        res.send(JSON.stringify(response.data.responseData));
       })
       .catch(function (error) {
         res.setHeader('Content-Type', 'application/json');
@@ -27,8 +30,7 @@ app.get('/', async (req, res) => {
     console.error(error.message)
     res.status(500).send('Server error', error)
   }
-  const word = req.query.word;
-  const langpair = req.query.langpair;
+
 
 
 });
