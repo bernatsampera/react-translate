@@ -1,22 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Tabs, Tab } from '@material-ui/core';
+
+import styled from 'styled-components';
+import { color } from '../shared/theme';
+
+const StyledTabs = styled(Tabs)`
+  color: ${color.Text};
+  background: ${color.Primary};
+  & .MuiTabs-flexContainer {
+    justify-content: center;
+  }
+  & .MuiTabs-indicator {
+    height: 4px;
+    background: ${color.Green};
+  }
+`;
+
 
 const NavBar = ({modules}) => {
-  const [currentTab, setCurrentTab] = useState('');
+  const [value, setValue] = React.useState(0);
+
   const location = useLocation();
 
+  // Set up correct tab when page is refreshed
   useEffect(() => {
-    setCurrentTab(location.pathname)
+    modules.map((module, i) => module.routeProps.path === location.pathname ? setValue(i): null)
   }, [location]);
 
+  const handleChange = (e, newValue) => {
+    console.log(newValue)
+    setValue(newValue);
+  };
+
   return ( 
-    <ul className="App-nav">
+    <StyledTabs  value={value} onChange={handleChange} >
     {modules.map(module => (
-      <li key={module.name} className={currentTab === module.routeProps.path ? 'active' : ''}>
-        <Link to={module.routeProps.path}> {module.name} </Link>
-      </li>
+      <Tab key={module.name} label={module.name} component={Link} to={module.routeProps.path} >
+      </Tab>
     ))}
-  </ul>
+  </StyledTabs>
    );
 }
  
