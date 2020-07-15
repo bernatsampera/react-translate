@@ -1,26 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import TranslateContext from '../context/TranslateContext';
-import { StyledDrawer } from '../../Styles';
-import { Drawer } from '@material-ui/core';
+import { StyledDrawer, DrawerElementsList, DrawerElement, HistoryTitle } from '../../Styles';
 
 const DisplayHistory = () => {
-  const { history, setWord } = useContext(TranslateContext);
+  const { history, wordSelected, setWordSelected } = useContext(TranslateContext);
 
   const selectWord = (word) => {
-    setWord(word)
+    setWordSelected(word)
   }
 
   return ( 
-    <Drawer
+    <StyledDrawer
     variant="permanent"
     open
-    PaperProps={{ component : StyledDrawer }}
     >
-      <h3> Search history</h3>
-      <ul>
-        { history.map((word, i) => (<li key={i} onClick={() => selectWord(word)}> {word} </li>))}
-      </ul> 
-    </Drawer>
+      <HistoryTitle> Search history</HistoryTitle>
+      <DrawerElementsList>
+        { history.slice().reverse().map((word, i) => (
+          <DrawerElement 
+            key={i} 
+            selected={word === wordSelected}
+            onClick={() => selectWord(word)}
+          > {word}
+          </DrawerElement>))}
+      </DrawerElementsList> 
+    </StyledDrawer>
 );}
 
 export default DisplayHistory;
