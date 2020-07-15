@@ -5,11 +5,19 @@ import './App.css';
 import modules from './modules';
 import NavBar from './components/NavBar';
 
+import styled from 'styled-components';
+import { color } from './shared/theme';
+
+const AppContainer = styled.div`
+  background: ${color.Light};
+  height: 100vh;
+`;
+
 function App(props) {
   return (
     <Router>
-      <div className="App">
-        <header className="App-header">
+      <AppContainer>
+        <header >
           <NavBar modules={modules}/>
         </header>
         <div>
@@ -17,7 +25,7 @@ function App(props) {
             <Route {...module.routeProps} key={module.name} />
           ))}
         </div>
-      </div>
+      </AppContainer>
     </Router>
   );
 }
