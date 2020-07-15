@@ -1,18 +1,20 @@
 import React, { useContext, useEffect, Fragment, useState } from 'react';
 import TranslateContext from '../context/TranslateContext';
-import { TranslationContainer } from '../../Styles';
+import { TranslationContainer, TranslationTitle, StyledPaper } from '../../Styles';
+import { color, size } from '../../../shared/theme';
 import axios from 'axios';
 
 // const baseApiUrl = 'https://api.mymemory.translated.net/get';
 
 const DisplayTranslation = () => {
   const [translation, setTranslation] = useState('');
-  const { word } = useContext(TranslateContext);
+  const { wordSelected, inputLanguage, outputLanguage } = useContext(TranslateContext);
 
   useEffect(() => {
-    const langpair = 'en|de';
-    if(word && langpair) {
-      axios.get(`/get?word=${word}&langpair=${langpair}`)
+    setTranslation('');
+    const langpair = `${inputLanguage.slice(0, 2)}|${outputLanguage.slice(0,2)}`;
+    if(wordSelected && langpair) {
+      axios.get(`/get?word=${wordSelected}&langpair=${langpair}`)
       .then(function (res) {
         console.log(res.data.translatedText);
         setTranslation(res.data.translatedText)
@@ -21,27 +23,18 @@ const DisplayTranslation = () => {
         console.log(error);
       });
     }
+  }, [wordSelected]);
 
 
-    // axios.get('/api')
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
-
-  }, [word]);
   return ( 
   <TranslationContainer> 
     <div>
-    <h3> Word Input </h3>
-      { word }
+    <TranslationTitle> Word Input </TranslationTitle>
+      { wordSelected && <StyledPaper elevation={5} color={color.Orange}>{ wordSelected }</StyledPaper> }
     </div>
     <div>
-      <h3> Word Result </h3>
-      { translation }
+      <TranslationTitle> Word Result </TranslationTitle>
+      { translation && <StyledPaper elevation={24} color={color.Green}>{ translation }</StyledPaper> }
     </div>
   </TranslationContainer> );
 }
