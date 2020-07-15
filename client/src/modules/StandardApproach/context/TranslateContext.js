@@ -1,21 +1,43 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState} from 'react';
 
 const TranslateContext = createContext({});
 
 export const TranslateContextProvider = (props) => {
-  const [word, setWord] = useState('');
   const [history, setHistory] = useLocalStorage('history', []);
+  const [wordSelected, setWordSelected] = useState('');
+  const [inputLanguage, setInputLanguage] = useLocalStorage('inputLang', '');
+  const [outputLanguage, setOutputLanguage] = useLocalStorage('outputLang', '');
 
   const addHistoryWord = (word) => {
-    setHistory([...history, word])
+    history.includes(word)
+      ? setWordSelected(word)
+      : setHistory([...history, word]);
+  };
+
+  const switchLanguages = () => {
+    setOutputLanguage(inputLanguage);
+    setInputLanguage(outputLanguage);
   }
 
-  return ( 
-    <TranslateContext.Provider value={{ word, setWord, history, addHistoryWord }}>
+
+  return (
+    <TranslateContext.Provider
+      value={{
+        wordSelected,
+        history,
+        inputLanguage,
+        outputLanguage,
+        setInputLanguage,
+        setOutputLanguage,
+        setWordSelected,
+        addHistoryWord,
+        switchLanguages
+      }}
+    >
       {props.children}
     </TranslateContext.Provider>
   );
-}
+};
 
 export default TranslateContext;
 
@@ -38,7 +60,7 @@ function useLocalStorage(key, initialValue) {
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
-  const setValue = value => {
+  const setValue = (value) => {
     try {
       // Allow value to be a function so we have same API as useState
       const valueToStore =
