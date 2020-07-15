@@ -17,6 +17,7 @@ export const TranslateContextProvider = (props) => {
   const switchLanguages = () => {
     setOutputLanguage(inputLanguage);
     setInputLanguage(outputLanguage);
+    setWordSelected('');
   }
 
 
