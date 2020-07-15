@@ -2,16 +2,23 @@ import React from 'react';
 import SearchForm from './components/SearchForm';
 import { TranslateContextProvider } from './context/TranslateContext';
 import DisplayTranslation from './components/DisplayTranslation';
-import { Container } from '@material-ui/core';
 import DisplayHistory from './components/DisplayHistory';
+
+import styled from 'styled-components';
+import { size } from '../../shared/theme';
+
+const StyledContainer = styled.div`
+  margin-left: ${size.history}
+`;
+
 
 const StandardApproach = () => (
   <TranslateContextProvider>
-    <Container>
-      <DisplayHistory />
+    <DisplayHistory />
+    <StyledContainer>
       <SearchForm />
       <DisplayTranslation />
-    </Container>
+    </StyledContainer>
   </TranslateContextProvider>
 );
 
