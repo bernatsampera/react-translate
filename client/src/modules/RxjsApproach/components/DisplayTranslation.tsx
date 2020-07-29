@@ -6,12 +6,13 @@ import {
 } from '../../Styles';
 import { color } from '../../../shared/theme';
 import { useObservable } from '../service/hooks';
-import { selectedWord$ } from '../service/LanguageState';
+import { selectedWord$, translation$ } from '../service/LanguageState';
 
 export interface DisplayTranslationProps {}
 
 const DisplayTranslation: React.SFC<DisplayTranslationProps> = () => {
   const wordSelected = useObservable(selectedWord$)
+  const translation = useObservable(translation$);
 
   return (
     <TranslationContainer>
@@ -24,12 +25,12 @@ const DisplayTranslation: React.SFC<DisplayTranslationProps> = () => {
         )}
       </div>
       <div>
-        {/* <TranslationTitle> Word Result </TranslationTitle>
+        <TranslationTitle> Word Result </TranslationTitle>
         {translation && (
           <StyledPaper elevation={24} color={color.Green}>
             {translation}
           </StyledPaper>
-        )} */}
+        )}
       </div>
     </TranslationContainer>
   );
