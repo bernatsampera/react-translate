@@ -37,7 +37,7 @@ const DisplayTranslation: React.SFC<DisplayTranslationProps> = ({
     if(wordSelected && inputLang && outputLang) {
       translateWordAction(wordSelected, inputLang, outputLang);
     }
-  }, [wordSelected, inputLang, outputLang]);
+  }, [translateWordAction, wordSelected, inputLang, outputLang]);
 
   return (
     <TranslationContainer>

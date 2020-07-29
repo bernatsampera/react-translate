@@ -9,7 +9,6 @@ import {
 } from './types';
 import axios from 'axios';
 import { Dispatch } from 'react';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
 /////////////////////////////////// HISTORY //////////////////////////////////////////////
 export const addWordtoHistoryAction = (word: string) => (

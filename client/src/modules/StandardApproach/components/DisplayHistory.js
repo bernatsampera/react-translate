@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { DrawerElement, DrawerElementsList, HistoryTitle, StyledDrawer } from '../../Styles';
 import TranslateContext from '../context/TranslateContext';

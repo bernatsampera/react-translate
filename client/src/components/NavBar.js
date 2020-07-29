@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Tabs, Tab } from '@material-ui/core';
 
@@ -26,7 +26,7 @@ const NavBar = ({modules}) => {
   // Set up correct tab when page is refreshed
   useEffect(() => {
     modules.map((module, i) => module.routeProps.path === location.pathname ? setValue(i): null)
-  }, [location]);
+  }, [location, modules]);
 
   const handleChange = (e, newValue) => {
     setValue(newValue);
