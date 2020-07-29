@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+
+import { DrawerElement, DrawerElementsList, HistoryTitle, StyledDrawer } from '../../Styles';
 import TranslateContext from '../context/TranslateContext';
-import { StyledDrawer, DrawerElementsList, DrawerElement, HistoryTitle } from '../../Styles';
 
 const DisplayHistory = () => {
   const { history, wordSelected, setWordSelected } = useContext(TranslateContext);

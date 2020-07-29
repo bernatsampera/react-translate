@@ -1,8 +1,9 @@
-import React, { useState, useContext, Fragment, useEffect } from 'react';
-import { Button, Select, MenuItem, InputLabel, FormControl, TextField } from '@material-ui/core';
-import TranslateContext from '../context/TranslateContext';
-import { StyledForm, SearchContainer, StyledSelect, LanguageContainer } from '../../Styles';
+import { Button, FormControl, InputLabel, MenuItem, TextField } from '@material-ui/core';
+import React, { useContext, useState } from 'react';
+
 import jsonLanguages from '../../../shared/languages.json';
+import { LanguageContainer, SearchContainer, StyledForm, StyledSelect } from '../../Styles';
+import TranslateContext from '../context/TranslateContext';
 
 const languages = jsonLanguages;
 
@@ -60,7 +61,7 @@ const LanguageSelector = ({isInput}) => {
     <FormControl>
       <InputLabel> Lang </InputLabel>
       <StyledSelect
-        value={isInput ? inputLanguage : outputLanguage}
+        value={(isInput ? inputLanguage : outputLanguage) || ""}
         onChange={(e) => saveLang(e.target.value)}
       >
         {languages.map(lang => <MenuItem key={lang.value} value={lang.value}> {lang.name} </MenuItem>)}        

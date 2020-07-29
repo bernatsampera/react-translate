@@ -29,7 +29,6 @@ const NavBar = ({modules}) => {
   }, [location]);
 
   const handleChange = (e, newValue) => {
-    console.log(newValue)
     setValue(newValue);
   };
 
