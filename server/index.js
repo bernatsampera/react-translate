@@ -9,31 +9,27 @@ const baseApiUrl = 'https://api.mymemory.translated.net/get';
 
 
 app.get('/get', async (req, res) => {
-  res.json({translatedText: 'holi'})
-  // try {
-  //   const word = req.query.word;
-  //   const langpair = req.query.langpair;
-  //   console.log('maki api request')
-  //   const url = `${baseApiUrl}?q=${word}&langpair=${langpair}`;
-  //   console.log(url);
-  //   // const url2 = 'https://api.mymemory.translated.net/get?q=Hello%20World!&langpair=en|it';
-  //   await axios.get(url)
-  //     .then(function (response) {
-  //       console.log(response);
-  //       res.setHeader('Content-Type', 'application/json');
-  //       res.send(JSON.stringify(response.data.responseData));
-  //     })
-  //     .catch(function (error) {
-  //       res.setHeader('Content-Type', 'application/json');
-  //       res.send(JSON.stringify( error ));
-  //     })
-  // } catch(error) {
-  //   console.error(error.message)
-  //   res.status(500).send('Server error', error)
-  // }
-
-
-
+  try {
+    const word = req.query.word;
+    const langpair = req.query.langpair;
+    console.log('maki api request')
+    const url = `${baseApiUrl}?q=${word}&langpair=${langpair}`;
+    console.log(url);
+    // const url2 = 'https://api.mymemory.translated.net/get?q=Hello%20World!&langpair=en|it';
+    await axios.get(url)
+      .then(function (response) {
+        console.log(response);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(response.data.responseData));
+      })
+      .catch(function (error) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify( error ));
+      })
+  } catch(error) {
+    console.error(error.message)
+    res.status(500).send('Server error', error)
+  }
 });
 
 app.get('/api', async (req,res) => {
