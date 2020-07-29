@@ -83,10 +83,18 @@ export const DrawerElementsList = styled.ul`
   list-style-type: none;
 `;
 
-export const DrawerElement = styled.li`
+// const NonStyledDrawer: React.SFC<Props> = ({ name, className, ...props }) => (
+//   <Drawer className={`material-icons ${className}`} {...props}>
+//     {name}
+//   </Drawer>
+// );
+
+export const DrawerElement = styled("li")<{selected?: boolean}>`
   text-align: center;
   padding: 10px;
   cursor: pointer;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
   &:hover {
     background-color: ${color.Secondary}
   }
